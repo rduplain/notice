@@ -9,6 +9,5 @@ echo -n "${NOW}${DELIMITER}" >> $LOG
 if [ $# -gt 0 ]; then
     echo "${@}" >> $LOG
 else
-    cat - >> $LOG
-    echo "$DELIMITER" >> $LOG
+    ( echo; cat -; echo "$DELIMITER" ) >> $LOG
 fi
