@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo ${NOW:-`date`}${DELIMITER:-" -- "}${@} >> ${NOTICE_LOG:-"$HOME/.notice"}
