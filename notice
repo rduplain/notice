@@ -1,6 +1,7 @@
 #!/bin/bash
 
-NOW=${NOTICE_DATE-`date`}
+[ -n "$NOTICE_DATE_FORMAT" ] && FORMAT=+${NOTICE_DATE_FORMAT}
+NOW=${NOTICE_DATE-`date $FORMAT`}
 DELIMITER=${NOTICE_SEP-' -- '}
 LOG=${NOTICE_LOG-"$HOME/.notice"}
 
