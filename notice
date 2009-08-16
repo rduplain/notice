@@ -1,14 +1,33 @@
 #!/bin/bash
+# notice - simple logging utility for the command-line user
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Get environment details which are configurable by the user.
 [ -n "$NOTICE_DATE_FORMAT" ] && FORMAT=+${NOTICE_DATE_FORMAT}
 NOW=${NOTICE_DATE-`date $FORMAT`}
 DELIMITER=${NOTICE_SEP-' -- '}
 LOG=${NOTICE_LOG-"$HOME/.notice"}
 
+# Insert the notice line header, without a newline.
 echo -n "${NOW}${DELIMITER}" >> $LOG
 
+# Append arguments to log if they are given, otherwise append stdin.
 if [ $# -gt 0 ]; then
+    # Simply echo the given arguments into the log.
     echo "${@}" >> $LOG
 else
+    # Read stdin, but prepend with newline, append with line of just delimiter.
     ( echo; cat -; echo "$DELIMITER" ) >> $LOG
 fi

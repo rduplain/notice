@@ -1,2 +1,68 @@
-Copyright 2009 Ron DuPlain <ron.duplain@gmail.com>
-See COPYING for license details.
+notice - simple logging utility for the command-line user
+---------------------------------------------------------
+
+license
+-------
+
+(C) Copyright 2009 Ron DuPlain <ron.duplain@gmail.com>
+
+This software package is freely available under the GNU Public License.
+See COPYING for license details of the GNU Public License version 3.
+
+overview
+--------
+
+`notice` provides the command-line user of Unix-like systems with a simple
+logging utility of thoughts and command output.
+
+installation
+------------
+
+Put the enclosed `notice` script somewhere in your `$PATH`.
+
+`notice` is a stand-alone script, with dependencies on:
+
+ * GNU bash, though `sh` might work, too.
+   (Just change `#!/bin/bash` to `#!/bin/sh`.)
+ * `cat` command (likely /bin/cat)
+ * `date` command (likely /bin/date)
+
+These dependencies are given on any Unix-like system, as they are part of the
+Unix standard.
+
+configuration
+-------------
+
+`notice` evaluates the following environment variables:
+
+ * `NOTICE_DATE` - text to use for timestamp of `notice`. (default: get output
+    of `date`) note that this is static text when provided, so repeated calls
+    to `notice` will use the same text given in `NOTICE_DATE`.
+ * `NOTICE_DATE_FORMAT` - format to use for `date` output. see `man date`
+    (default: default of `date`). not used if `NOTICE_DATE` is set.
+ * `NOTICE_SEP` - separator between date and content (default: ` -- `).
+ * `NOTICE_LOG` - path of `notice` log file (default: `$HOME/.notice`).
+ * `HOME` - if `NOTICE_LOG` is not given, `notice` will evaluate the location
+    given by `$HOME`.
+
+See the section titled "example" for examples on how to use these configuration
+variables.
+
+format
+------
+
+The basic format of the `notice` log is:
+
+    ${NOTICE_DATE}${NOTICE_SEP}${args_or_stdin}
+
+With `notice` defaults, a call of `notice Hello, world!` will look like:
+
+    Sat Aug 15 19:15:39 EDT 2009 -- Hello, world!
+
+where the date would match the output of `date` on the local system.
+(See defaults in section titled "configuration.")
+
+example
+-------
+
+coming soon.
