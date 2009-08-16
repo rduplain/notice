@@ -1,5 +1,5 @@
-notice - simple logging utility for the command-line user
----------------------------------------------------------
+notice - dead simple logging utility for the command-line user
+--------------------------------------------------------------
 
 license
 -------
@@ -13,7 +13,10 @@ overview
 --------
 
 `notice` provides the command-line user of Unix-like systems with a simple
-logging utility of thoughts and command output.
+logging utility of thoughts and command output.  It is meant to be dead simple:
+just a short command-line script with a bare logging format.  `notice` is
+virtually featureless so that it can be extended easily using command-line
+utilities.
 
 installation
 ------------
