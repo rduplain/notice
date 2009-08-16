@@ -65,4 +65,62 @@ where the date would match the output of `date` on the local system.
 example
 -------
 
-coming soon.
+Here is an example of using `notice` in a `bash` session (cwd: $HOME):
+
+    $ notice Hello, world!
+    $ notice follow shell semantics or it won't work
+    > '
+    $ notice follow shell semantics or it won\'t work
+    $ notice this example is in bash
+    $ date && cat .notice
+    Sat Aug 15 20:04:16 EDT 2009
+    Sat Aug 15 20:03:36 EDT 2009 -- Hello, world!
+    Sat Aug 15 20:03:58 EDT 2009 -- follow shell semantics or it wont work
+
+    Sat Aug 15 20:04:04 EDT 2009 -- follow shell semantics or it won't work
+    Sat Aug 15 20:04:10 EDT 2009 -- this example is in bash
+    $ notice
+    This is read from stdin.
+    We no longer have to worry about the shell, but we do have to worry about
+    editing stdin (we can't, really).
+    (Hit ctrl-D to provide EOF and close stdin.)
+    $ cat .notice
+    Sat Aug 15 20:03:36 EDT 2009 -- Hello, world!
+    Sat Aug 15 20:03:58 EDT 2009 -- follow shell semantics or it wont work
+  
+    Sat Aug 15 20:04:04 EDT 2009 -- follow shell semantics or it won't work
+    Sat Aug 15 20:04:10 EDT 2009 -- this example is in bash
+    Sat Aug 15 20:04:32 EDT 2009 --
+    This is read from stdin.
+    We no longer have to worry about the shell, but we do have to worry about
+    editing stdin (we can't, really).
+    (Hit ctrl-D to provide EOF and close stdin.)
+     --
+    $ 
+    $ export NOTICE_DATE= NOTICE_SEP=
+    $ notice lines no longer have a date or separator
+    $ tail -1 .notice
+    lines no longer have a date or separator
+    $ export NOTICE_DATE=log NOTICE_SEP=': '
+    $ notice lines now start with 'log: '
+    $ tail -1 .notice 
+    log: lines now start with log: 
+    $ 
+    $ unset NOTICE_DATE NOTICE_SEP 
+    $ export NOTICE_LOG=log
+    $ notice notice now inserts content into file at 'log'
+    $ cat log 
+    Sat Aug 15 20:09:26 EDT 2009 -- notice now inserts content into file at log
+    $ notice go forth and log abundantly
+    $ cat log 
+    Sat Aug 15 20:09:26 EDT 2009 -- notice now inserts content into file at log
+    Sat Aug 15 20:09:48 EDT 2009 -- go forth and log abundantly
+    $ 
+    $ notice pipe into notice to log command output
+    $ date | notice
+    $ tail -4 log
+    Sat Aug 15 20:14:16 EDT 2009 -- pipe into notice to log command output
+    Sat Aug 15 20:14:22 EDT 2009 -- 
+    Sat Aug 15 20:14:22 EDT 2009
+     -- 
+    $ 
