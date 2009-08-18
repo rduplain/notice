@@ -18,6 +18,15 @@ just a short command-line script with a bare logging format.  `notice` is
 virtually featureless so that it can be extended easily using command-line
 utilities.
 
+Just type:
+
+    notice log this somewhere...
+
+and get, in your notice log file (safely tucked away at $NOTICE_LOG):
+
+    Tue Aug 18 13:49:37 EDT 2009 -- log this somewhere...
+
+
 installation
 ------------
 
