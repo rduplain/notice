@@ -18,7 +18,7 @@ just a short command-line script with a bare logging format.  `notice` is
 virtually featureless so that it can be extended easily using command-line
 utilities.
 
-Just type:
+Just type at the command line:
 
     notice log this somewhere...
 
@@ -26,6 +26,7 @@ and get, in your notice log file (safely tucked away at $NOTICE_LOG):
 
     Tue Aug 18 13:49:37 EDT 2009 -- log this somewhere...
 
+The default location for the notice log is `~/.notice`.
 
 installation
 ------------
@@ -47,25 +48,29 @@ configuration
 
 `notice` evaluates the following environment variables:
 
- * `NOTICE_DATE` - text to use for timestamp of `notice`. (default: get output
-    of `date`) note that this is static text when provided, so repeated calls
-    to `notice` will use the same text given in `NOTICE_DATE`.
- * `NOTICE_DATE_FORMAT` - format to use for `date` output. see `man date`
-    (default: default of `date`). not used if `NOTICE_DATE` is set.
- * `NOTICE_SEP` - separator between date and content (default: ` -- `).
- * `NOTICE_LOG` - path of `notice` log file (default: `$HOME/.notice`).
- * `HOME` - if `NOTICE_LOG` is not given, `notice` will evaluate the location
-    given by `$HOME`.
+ * `$NOTICE_DATE` -- text to use for timestamp of `notice`. (default: get
+    output of `date`) note that this is static text when provided, so repeated
+    calls to `notice` will use the same text given in `$NOTICE_DATE`.
+ * `$NOTICE_DATE_FORMAT` -- format to use for `date` output. see `man date`
+    (default: default of `date`). not used if `$NOTICE_DATE` is set.
+ * `$NOTICE_SEP` -- separator between date and content (default: ` -- `).
+ * `$NOTICE_LOG` -- path of `notice` log file (default: `$HOME/.notice`).
+ * `$HOME` -- if `$NOTICE_LOG` is not given, `notice` will evaluate the
+    location given by `$HOME/.notice`.
 
-See the section titled "example" for examples on how to use these configuration
-variables.
+See the section titled "example" for a type script of examples on how to use
+these configuration variables.
 
 format
 ------
 
-The basic format of the `notice` log is:
+The basic format of the `notice` log is, when args are given:
 
-    ${NOTICE_DATE}${NOTICE_SEP}${args_or_stdin}
+    ${NOTICE_DATE}${NOTICE_SEP}${args}
+
+The basic format of the `notice` log is, when reading from stdin:
+
+    ${NOTICE_DATE}${NOTICE_SEP}${stdin}${NOTICE_SEP}
 
 With `notice` defaults, a call of `notice Hello, world!` will look like:
 
@@ -136,3 +141,10 @@ Here is an example of using `notice` in a `bash` session (cwd: $HOME):
     Sat Aug 15 20:14:22 EDT 2009
      -- 
     $ 
+
+how simple?
+-----------
+
+The first cut of `notice` was a single line of bash:
+
+`echo ${NOW:-`date`}${DELIMITER:-" -- "}${@} >> ${NOTICE_LOG:-"$HOME/.notice"}`
