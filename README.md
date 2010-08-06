@@ -4,7 +4,7 @@ notice - dead simple user logging utility for the command-line user
 license
 -------
 
-(C) Copyright 2009 Ron DuPlain <ron.duplain@gmail.com>
+(C) Copyright 2009-2010 Ron DuPlain <ron.duplain@gmail.com>
 
 This software package is freely available under the GNU Public License.
 See COPYING for license details of the GNU Public License version 3.
@@ -147,4 +147,5 @@ how simple?
 
 The first cut of `notice` was a single line of bash:
 
-`echo ${NOW:-`date`}${DELIMITER:-" -- "}${@} >> ${NOTICE_LOG:-"$HOME/.notice"}`
+    echo ${NOW:-`date`}${DELIMITER:-" -- "}${@}>>${NOTICE_LOG:-"$HOME/.notice"}
+
