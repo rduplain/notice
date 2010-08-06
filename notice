@@ -19,6 +19,25 @@
 NOW=${NOTICE_DATE-`date $FORMAT`}
 DELIMITER=${NOTICE_SEP-' -- '}
 LOG=${NOTICE_LOG-"$HOME/.notice"}
+LOCK=${LOG}.lock
+
+# Lock to provide a means to safely log from multiple shells.
+until ( set -o noclobber; echo "$$" > "$LOCK") 2> /dev/null; do
+    if [ -z "$LOCKED" ]; then
+        echo "Log file ($LOG) locked." 1>&2
+        echo "Wait or forcibly remove $LOCK." 1>&2
+    fi
+    LOCKED=true
+    # Back off.
+    sleep 1
+done
+
+if [ -n "$LOCKED" ]; then
+    echo "Log file now available. Go!" 1>&2
+    unset LOCKED
+fi
+
+trap 'rm -f "$LOCK"; exit $?' INT TERM EXIT
 
 # Insert the notice line header, without a newline.
 echo -n "${NOW}${DELIMITER}" >> $LOG
@@ -31,3 +50,6 @@ else
     # Read stdin, but prepend with newline, append with line of just delimiter.
     ( echo; cat -; echo "$DELIMITER" ) >> $LOG
 fi
+
+rm -f $LOCK
+trap - INT TERM EXIT
