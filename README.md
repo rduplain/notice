@@ -1,13 +1,11 @@
-notice - dead simple user logging utility for the command-line user
--------------------------------------------------------------------
+notice - dead simple user logging utility
+-----------------------------------------
 
 license
 -------
 
-(C) Copyright 2009-2010 Ron DuPlain <ron.duplain@gmail.com>
+Released under the BSD License (see LICENSE file).
 
-This software package is freely available under the GNU Public License.
-See COPYING for license details of the GNU Public License version 3.
 
 overview
 --------
@@ -79,6 +77,13 @@ With `notice` defaults, a call of `notice Hello, world!` will look like:
 where the date would match the output of `date` on the local system.
 (See defaults in section titled "configuration.")
 
+how simple?
+-----------
+
+The first cut of `notice` was a single line of bash:
+
+    echo ${NOW:-`date`}${DELIMITER:-" -- "}${@}>>${NOTICE_LOG:-"$HOME/.notice"}
+
 example
 -------
 
@@ -104,7 +109,7 @@ Here is an example of using `notice` in a `bash` session (cwd: $HOME):
     $ cat .notice
     Sat Aug 15 20:03:36 EDT 2009 -- Hello, world!
     Sat Aug 15 20:03:58 EDT 2009 -- follow shell semantics or it wont work
-  
+
     Sat Aug 15 20:04:04 EDT 2009 -- follow shell semantics or it won't work
     Sat Aug 15 20:04:10 EDT 2009 -- this example is in bash
     Sat Aug 15 20:04:32 EDT 2009 --
@@ -113,7 +118,7 @@ Here is an example of using `notice` in a `bash` session (cwd: $HOME):
     editing stdin (we can't, really).
     (Hit ctrl-D to provide EOF and close stdin.)
      --
-    $ 
+    $
     $ export NOTICE_DATE= NOTICE_SEP=
     $ notice lines no longer have a date or separator
     $ tail -1 .notice
@@ -141,11 +146,3 @@ Here is an example of using `notice` in a `bash` session (cwd: $HOME):
     Sat Aug 15 20:14:22 EDT 2009
      -- 
     $ 
-
-how simple?
------------
-
-The first cut of `notice` was a single line of bash:
-
-    echo ${NOW:-`date`}${DELIMITER:-" -- "}${@}>>${NOTICE_LOG:-"$HOME/.notice"}
-
